@@ -54,28 +54,30 @@ define-command -hidden table-adjust-number-of-bars %{
 }
 
 define-command table-align %{
-    # make sure that all the rows have the same number of bars
-    table-adjust-number-of-bars
-    # prepare the table
-    table-strip
-    execute-keys "<a-s><a-K>^\h*\|-<ret>"
-    # bars should be surrounded by whitespaces
-    try %{
-        execute-keys -draft "s\|(?!\s)<ret>a <esc>"
-    }
-    try %{
-        execute-keys -draft "s(?<!\h)\|" "<ret><a-K>^<ret>i <esc>"
-    }
-    # there should be at least three characters between two bars
-    try %{
-        execute-keys -draft "s(?<=\|)\h+(?=\|)" "<ret>c   <esc>"
-    }
-    table-select
-    # align the bars
-    execute-keys -draft "s\|<ret>&"
-    # replace whitespaces with minuses
-    try %{
-        execute-keys -draft "<a-x><a-s><a-k>^\h*\|-<ret>s\|[^\n]*<ret>s <ret>r-"
+    evaluate-commands -draft %{
+        # make sure that all the rows have the same number of bars
+        table-adjust-number-of-bars
+        # prepare the table
+        table-strip
+        execute-keys "<a-s><a-K>^\h*\|-<ret>"
+        # bars should be surrounded by whitespaces
+        try %{
+            execute-keys -draft "s\|(?!\s)<ret>a <esc>"
+        }
+        try %{
+            execute-keys -draft "s(?<!\h)\|" "<ret><a-K>^<ret>i <esc>"
+        }
+        # there should be at least three characters between two bars
+        try %{
+            execute-keys -draft "s(?<=\|)\h+(?=\|)" "<ret>c   <esc>"
+        }
+        table-select
+        # align the bars
+        execute-keys -draft "s\|<ret>&"
+        # replace whitespaces with minuses
+        try %{
+            execute-keys -draft "<a-x><a-s><a-k>^\h*\|-<ret>s\|[^\n]*<ret>s <ret>r-"
+        }
     }
 }
 
