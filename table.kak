@@ -39,11 +39,11 @@ define-command -hidden table-adjust-number-of-bars %{
     }
     # align bars and \n
     # indent is specified by the first line
-    execute-keys -draft "s\|<ret>1<a-&>&<a-x>s\n<ret>&"
+    execute-keys -draft "s\|<ret>1<a-&>&xs\n<ret>&"
     # select the longest line
-    execute-keys "<a-x>s\|\n<ret>&<space>"
+    execute-keys "xs\|\n<ret>&<space>"
     # select all bars except the first one
-    execute-keys "<a-x>s\|<ret>)<a-space>"
+    execute-keys "xs\|<ret>)<a-space>"
     # add missing bars
     evaluate-commands -itersel -draft -save-regs 'c' %{
         execute-keys "h<a-h>"
@@ -76,7 +76,7 @@ define-command table-align %{
         execute-keys -draft "s\|<ret>&"
         # replace whitespaces with minuses
         try %{
-            execute-keys -draft "<a-x><a-s><a-k>^\h*\|-<ret>s\|[^\n]*<ret>s <ret>r-"
+            execute-keys -draft "x<a-s><a-k>^\h*\|-<ret>s\|[^\n]*<ret>s <ret>r-"
         }
     }
 }
